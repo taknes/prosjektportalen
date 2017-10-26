@@ -1,8 +1,13 @@
+import ISiteGroup from "./ISiteGroup";
+
 export interface IProjectModel {
     Title?: string;
     Url?: string;
     Description?: string;
     InheritPermissions?: boolean;
+    AssociatedVisitorGroup?: ISiteGroup;
+    AssociatedMemberGroup?: ISiteGroup;
+    AssociatedOwnerGroup?: ISiteGroup;
     IncludeContent?: string[];
     ProjectPhase?: string;
     ProjectPhaseLetter?: string;
@@ -15,6 +20,9 @@ export class ProjectModel implements IProjectModel {
     public Url?: string;
     public Description?: string;
     public InheritPermissions?: boolean;
+    public AssociatedVisitorGroup?: ISiteGroup;
+    public AssociatedMemberGroup?: ISiteGroup;
+    public AssociatedOwnerGroup?: ISiteGroup;
     public IncludeContent?: string[];
     public ProjectPhase?: string;
     public ProjectPhaseLetter?: string;
