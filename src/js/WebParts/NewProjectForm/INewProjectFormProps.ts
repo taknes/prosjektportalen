@@ -2,6 +2,7 @@ import RESOURCE_MANAGER from "../../@localization";
 import NewProjectFormRenderMode from "./NewProjectFormRenderMode";
 
 export default interface INewProjectFormProps {
+    inheritPermissions?: boolean;
     className?: string;
     style?: React.CSSProperties;
     settingsClassName?: string;
@@ -14,10 +15,10 @@ export default interface INewProjectFormProps {
     subHeaderText?: string;
     creationModalTitle?: string;
     inputContainerStyle?: React.CSSProperties;
-    showSettings?: boolean;
 }
 
 export const NewProjectFormDefaultProps: Partial<INewProjectFormProps> = {
+    inheritPermissions: false,
     titleMinLength: 4,
     className: "pp-newProjectForm",
     settingsClassName: "advanced-settings",
@@ -30,5 +31,4 @@ export const NewProjectFormDefaultProps: Partial<INewProjectFormProps> = {
     subHeaderText: RESOURCE_MANAGER.getResource("NewProjectForm_SubText"),
     creationModalTitle: RESOURCE_MANAGER.getResource("CreationModal_Title"),
     inputContainerStyle: { marginBottom: 5 },
-    showSettings: true,
 };

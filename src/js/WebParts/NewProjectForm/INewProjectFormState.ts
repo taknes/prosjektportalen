@@ -1,5 +1,5 @@
 import ListConfig from "../../Provision/Data/Config/ListConfig";
-import { IProjectModel } from "../../Model";
+import { IProjectModel, ISiteGroup } from "../../Model";
 
 export enum ProvisionStatus {
     Idle,
@@ -17,8 +17,9 @@ export default interface INewProjectFormState {
         progress?: string;
         error?: any;
     };
+    siteGroups: ISiteGroup[];
     showListContentSettings?: boolean;
+    showGroupSettings?: boolean;
     formValid?: boolean;
-    showSettings?: boolean;
 }
 
