@@ -1434,6 +1434,9 @@
   <data name="NewProjectForm_ShowListContentSettings" xml:space="preserve">
     <value>Default list content</value>
   </data>
+  <data name="NewProjectForm_ShowGroupSettings" xml:space="preserve">
+    <value>Set Up Groups for this Site</value>
+  </data>
   <data name="NewProjectForm_Title" xml:space="preserve">
     <value>New project</value>
   </data>
@@ -1451,6 +1454,9 @@
   </data>
   <data name="ProvisionWeb_CreatingWeb" xml:space="preserve">
     <value>Creating SharePoint site</value>
+  </data>
+  <data name="ProvisionWeb_SetUpAssociatedGroup" xml:space="preserve">
+    <value>Setting up groups</value>
   </data>
   <data name="ProvisionWeb_ApplyingTemplate" xml:space="preserve">
     <value>Applying template</value>
@@ -1643,6 +1649,39 @@
   </data>
   <data name="String_SaveChanges" xml:space="preserve">
     <value>Save changes</value>
+  </data>
+  <data name="String_CreateNewGroup" xml:space="preserve">
+    <value>Create a new group</value>
+  </data>
+  <data name="String_UseExistingGroup" xml:space="preserve">
+    <value>Use an existing group</value>
+  </data>
+  <data name="String_GroupVisitors_Title" xml:space="preserve">
+    <value>Visitors to this Site</value>
+  </data>
+  <data name="String_GroupVisitors_Description" xml:space="preserve">
+    <value>Visitors can read content in the Web site. Create a group of visitors or re-use an existing SharePoint group.</value>
+  </data>
+  <data name="String_GroupVisitors_Postfix" xml:space="preserve">
+    <value> Visitors</value>
+  </data>
+  <data name="String_GroupMembers_Title" xml:space="preserve">
+    <value>Members of this Site</value>
+  </data>
+  <data name="String_GroupMembers_Description" xml:space="preserve">
+    <value>Members can contribute content to the Web site. Create a group of site members or re-use an existing SharePoint group.</value>
+  </data>
+  <data name="String_GroupMembers_Postfix" xml:space="preserve">
+    <value> Members</value>
+  </data>
+  <data name="String_GroupOwners_Title" xml:space="preserve">
+    <value>Owners of this Site</value>
+  </data>
+  <data name="String_GroupOwners_Description" xml:space="preserve">
+    <value>Owners have full control over the Web site. Create a group of owners or re-use an existing SharePoint group.</value>
+  </data>
+  <data name="String_GroupOwners_Postfix" xml:space="preserve">
+    <value> Owners</value>
   </data>
   <data name="Project_WelcomePage" xml:space="preserve">
     <value>SitePages/ProjectHome.aspx</value>

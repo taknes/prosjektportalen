@@ -1434,6 +1434,9 @@
   <data name="NewProjectForm_ShowListContentSettings" xml:space="preserve">
     <value>Standard listeinnhold</value>
   </data>
+  <data name="NewProjectForm_ShowGroupSettings" xml:space="preserve">
+    <value>Konfigurere grupper for dette området</value>
+  </data>
   <data name="NewProjectForm_Title" xml:space="preserve">
     <value>Nytt prosjekt</value>
   </data>
@@ -1451,6 +1454,9 @@
   </data>
   <data name="ProvisionWeb_CreatingWeb" xml:space="preserve">
     <value>Oppretter SharePoint-område</value>
+  </data>
+  <data name="ProvisionWeb_SetUpAssociatedGroup" xml:space="preserve">
+    <value>Setter opp grupper</value>
   </data>
   <data name="ProvisionWeb_ApplyingTemplate" xml:space="preserve">
     <value>Legger på mal</value>
@@ -1646,6 +1652,39 @@
   </data>
   <data name="String_SaveChanges" xml:space="preserve">
     <value>Lagre endringer</value>
+  </data>
+  <data name="String_CreateNewGroup" xml:space="preserve">
+    <value>Opprett en ny gruppe</value>
+  </data>
+  <data name="String_UseExistingGroup" xml:space="preserve">
+    <value>Bruk en eksisterende gruppe</value>
+  </data>
+  <data name="String_GroupVisitors_Title" xml:space="preserve">
+    <value>Besøkende på området</value>
+  </data>
+  <data name="String_GroupVisitors_Description" xml:space="preserve">
+    <value>Besøkende kan lese innhold på nettstedet. Opprett en gruppe med besøkende, eller bruk en eksisterende SharePoint-gruppe på nytt.</value>
+  </data>
+  <data name="String_GroupVisitors_Postfix" xml:space="preserve">
+    <value>-besøkende</value>
+  </data>
+  <data name="String_GroupMembers_Title" xml:space="preserve">
+    <value>Medlemmer av dette området</value>
+  </data>
+  <data name="String_GroupMembers_Description" xml:space="preserve">
+    <value>Medlemmer kan bidra med innhold på nettstedet. Opprett en gruppe med områdemedlemmer, eller bruk en eksisterende SharePoint-gruppe på nytt.</value>
+  </data>
+  <data name="String_GroupMembers_Postfix" xml:space="preserve">
+    <value>-medlemmer</value>
+  </data>
+  <data name="String_GroupOwners_Title" xml:space="preserve">
+    <value>Eiere av dette området</value>
+  </data>
+  <data name="String_GroupOwners_Description" xml:space="preserve">
+    <value>Eiere får full kontroll over nettstedet. Opprett en gruppe med eiere, eller bruk en eksisterende SharePoint-gruppe på nytt.</value>
+  </data>
+  <data name="String_GroupOwners_Postfix" xml:space="preserve">
+    <value>-eiere</value>
   </data>
   <data name="Project_WelcomePage" xml:space="preserve">
     <value>SitePages/ProjectHome.aspx</value>
