@@ -1,5 +1,6 @@
 export default interface IRiskMatrixState {
-    data?: any[];
+    isLoading?: boolean;
+    data?: { items: any[], views: any[] };
     selectedRisk?: any;
     showDialog?: boolean;
     postAction?: boolean;

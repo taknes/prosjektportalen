@@ -3,6 +3,7 @@ import pnp from "sp-pnp-js";
 import RESOURCE_MANAGER from "../../@localization";
 import { Toggle } from "office-ui-fabric-react/lib/Toggle";
 import { MessageBar } from "office-ui-fabric-react/lib/MessageBar";
+import { Dropdown } from "office-ui-fabric-react/lib/Dropdown";
 import RiskMatrixCells, { IRiskMatrixCell, RiskMatrixCellType } from "./RiskMatrixCells";
 import MatrixRow from "./MatrixRow";
 import MatrixHeaderCell from "./MatrixHeaderCell";
@@ -22,28 +23,38 @@ export default class RiskMatrix extends React.PureComponent<IRiskMatrixProps, IR
 
     /**
      * Constructor
+     *
+     * @param {IRiskMatrixProps} props Props
      */
     constructor(props: IRiskMatrixProps) {
         super(props);
-        this.state = { data: props.data || null };
+        this.state = {
+            isLoading: !props.data,
+            data: {
+                items: props.data || null,
+                views: [],
+            },
+        };
     }
 
-    public async componentDidMount() {
-        if (!this.state.data) {
-            let updatedState: Partial<IRiskMatrixState> = {};
-            updatedState.data = await this.fetchData();
-            updatedState.hideLabels = this.tableElement.offsetWidth < 900;
-            this.setState(updatedState);
+    public componentDidMount() {
+        if (!this.state.data.items) {
+            this._onInitData();
         }
     }
 
-    public render(): JSX.Element {
+    /**
+     * Renders the <RiskMatrix /> component
+     */
+    public render(): React.ReactElement<IRiskMatrixProps> {
+        const { isLoading, data, hideLabels } = this.state;
         let tableProps: React.HTMLAttributes<HTMLElement> = { id: this.props.id };
 
-        if (this.state.hideLabels) {
+        if (hideLabels) {
             tableProps.className = "hide-labels";
         }
-        if (!this.state.data) {
+
+        if (isLoading) {
             return (
                 <div className={this.props.className}>
                     <table { ...tableProps } ref={ele => this.tableElement = ele}></table>
@@ -51,7 +62,7 @@ export default class RiskMatrix extends React.PureComponent<IRiskMatrixProps, IR
             );
         }
 
-        const items = this.state.data.filter(i => i.ContentTypeId.indexOf(this.props.contentTypeId) !== -1);
+        const items = data.items.filter(i => i.ContentTypeId.indexOf(this.props.contentTypeId) !== -1);
 
         if (items.length === 0) {
             if (this.props.showEmptyMessage) {
@@ -60,9 +71,14 @@ export default class RiskMatrix extends React.PureComponent<IRiskMatrixProps, IR
             return null;
         }
 
-
         return (
             <div className={this.props.className}>
+                <div hidden={!this.props.listViewSelectorEnabled}>
+                    <Dropdown
+                        placeHolder="Velg en visning"
+                        label="Visning:"
+                        options={data.views.filter(v => v.Title).map((v, i) => ({ key: i, text: v.Title }))} />
+                </div>
                 <table { ...tableProps } ref={ele => this.tableElement = ele}>
                     <tbody>
                         {this._renderRows(items)}
@@ -80,6 +96,22 @@ export default class RiskMatrix extends React.PureComponent<IRiskMatrixProps, IR
         );
     }
 
+    /**
+     * On init data
+     */
+    private async _onInitData() {
+        let updatedState: Partial<IRiskMatrixState> = {};
+        updatedState.data = await this.fetchData();
+        updatedState.hideLabels = this.tableElement.offsetWidth < 900;
+        updatedState.isLoading = false;
+        this.setState(updatedState);
+    }
+
+    /**
+     * Render rows
+     *
+     * @param {any} items Items
+     */
     private _renderRows(items) {
         const riskMatrixRows = RiskMatrixCells.map((rows, i) => {
             let cells = rows.map((c, j) => {
@@ -151,10 +183,17 @@ export default class RiskMatrix extends React.PureComponent<IRiskMatrixProps, IR
         ));
     }
 
-    private async fetchData(): Promise<any[]> {
-        const list = pnp.sp.web.lists.getByTitle(RESOURCE_MANAGER.getResource("Lists_Uncertainties_Title"));
-        const items = await list.items.get();
-        return items;
+    /**
+     * Fetch data
+     */
+    private async fetchData(): Promise<{ items, views }> {
+        const pnpList = pnp.sp.web.lists.getByTitle(RESOURCE_MANAGER.getResource("Lists_Uncertainties_Title"));
+        let views = [];
+        if (this.props.listViewSelectorEnabled) {
+            views = await pnpList.views.get();
+        }
+        const items = await pnpList.items.get();
+        return { items, views };
     }
 }
 
