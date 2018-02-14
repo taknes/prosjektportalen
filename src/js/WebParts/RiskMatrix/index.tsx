@@ -11,7 +11,7 @@ import MatrixCell from "./MatrixCell";
 import RiskElement from "./RiskElement";
 import IRiskMatrixProps, { RiskMatrixDefaultProps } from "./IRiskMatrixProps";
 import IRiskMatrixState from "./IRiskMatrixState";
-
+import IRiskMatrixData from "./IRiskMatrixData";
 
 /**
  * Risk Matrix
@@ -30,10 +30,7 @@ export default class RiskMatrix extends React.PureComponent<IRiskMatrixProps, IR
         super(props);
         this.state = {
             isLoading: !props.data,
-            data: {
-                items: props.data || null,
-                views: [],
-            },
+            data: props.data || null,
         };
     }
 
@@ -186,7 +183,7 @@ export default class RiskMatrix extends React.PureComponent<IRiskMatrixProps, IR
     /**
      * Fetch data
      */
-    private async fetchData(): Promise<{ items, views }> {
+    private async fetchData(): Promise<IRiskMatrixData> {
         const pnpList = pnp.sp.web.lists.getByTitle(RESOURCE_MANAGER.getResource("Lists_Uncertainties_Title"));
         let views = [];
         if (this.props.listViewSelectorEnabled) {

@@ -1,5 +1,7 @@
+import IRiskMatrixData from "./IRiskMatrixData";
+
 export default interface IRiskMatrixProps extends React.HTMLAttributes<HTMLElement> {
-    data?: any[];
+    data?: IRiskMatrixData;
     contentTypeId?: string;
     showEmptyMessage?: boolean;
     listViewSelectorEnabled?: boolean;

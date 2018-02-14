@@ -1,6 +1,8 @@
+import IRiskMatrixData from "./IRiskMatrixData";
+
 export default interface IRiskMatrixState {
     isLoading?: boolean;
-    data?: { items: any[], views: any[] };
+    data?: IRiskMatrixData;
     selectedRisk?: any;
     showDialog?: boolean;
     postAction?: boolean;
