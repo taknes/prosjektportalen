@@ -1,6 +1,6 @@
 import RESOURCE_MANAGER from "../../../../@localization";
 import { IList } from "sp-pnp-provisioning/lib/schema";
-import { GtProjectLogProductLookup } from "./SiteFields";
+import { GtProjectLogProductLookup, GtProjectLogEventLookup } from "./SiteFields";
 
 const ProjectLog: IList = {
     Title: RESOURCE_MANAGER.getResource("Lists_ProjectLog_Title"),
@@ -14,7 +14,7 @@ const ProjectLog: IList = {
     AdditionalSettings: {
         EnableVersioning: true,
     },
-    Fields: [GtProjectLogProductLookup],
+    Fields: [GtProjectLogProductLookup, GtProjectLogEventLookup],
     Views: [{
         Title: RESOURCE_MANAGER.getResource("View_AllItems_DisplayName"),
         ViewFields: ["LinkTitle", "GtProjectLogType", "GtProjectLogReporter", "GtProjectLogResponsible", "GtProjectLogConsequence", "GtProjectLogRecommendation", "GtProjectLogExperience"],
