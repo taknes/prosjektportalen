@@ -30,7 +30,10 @@ export default class RiskMatrix extends React.PureComponent<IRiskMatrixProps, IR
         super(props);
         this.state = {
             isLoading: !props.data,
-            data: props.data || null,
+            data: {
+                ...props.data,
+                views: [],
+            },
         };
     }
 
@@ -44,24 +47,19 @@ export default class RiskMatrix extends React.PureComponent<IRiskMatrixProps, IR
      * Renders the <RiskMatrix /> component
      */
     public render(): React.ReactElement<IRiskMatrixProps> {
-        const { isLoading, data, hideLabels } = this.state;
-        let tableProps: React.HTMLAttributes<HTMLElement> = { id: this.props.id };
-
-        if (hideLabels) {
-            tableProps.className = "hide-labels";
-        }
+        const { isLoading, data } = this.state;
 
         if (isLoading) {
             return (
                 <div className={this.props.className}>
-                    <table { ...tableProps } ref={ele => this.tableElement = ele}></table>
+                    {this._renderTable()}
                 </div>
             );
         }
 
-        const items = data.items.filter(i => i.ContentTypeId.indexOf(this.props.contentTypeId) !== -1);
+        const filteredItems = data.items.filter(i => i.ContentTypeId.indexOf(this.props.contentTypeId) !== -1);
 
-        if (items.length === 0) {
+        if (filteredItems.length === 0) {
             if (this.props.showEmptyMessage) {
                 return <MessageBar>{RESOURCE_MANAGER.getResource("RiskMatrix_EmptyMessage")}</MessageBar>;
             }
@@ -72,15 +70,11 @@ export default class RiskMatrix extends React.PureComponent<IRiskMatrixProps, IR
             <div className={this.props.className}>
                 <div hidden={!this.props.listViewSelectorEnabled}>
                     <Dropdown
-                        placeHolder="Velg en visning"
-                        label="Visning:"
+                        placeHolder={RESOURCE_MANAGER.getResource("RiskMatrix_ListViewSelector_Placeholder")}
+                        label={RESOURCE_MANAGER.getResource("RiskMatrix_ListViewSelector_Label")}
                         options={data.views.filter(v => v.Title).map((v, i) => ({ key: i, text: v.Title }))} />
                 </div>
-                <table { ...tableProps } ref={ele => this.tableElement = ele}>
-                    <tbody>
-                        {this._renderRows(items)}
-                    </tbody>
-                </table>
+                {this._renderTable(filteredItems)}
                 <div>
                     <Toggle
                         defaultChecked={false}
@@ -107,43 +101,57 @@ export default class RiskMatrix extends React.PureComponent<IRiskMatrixProps, IR
     /**
      * Render rows
      *
-     * @param {any} items Items
+     * @param {any[]} items Items
      */
-    private _renderRows(items) {
-        const riskMatrixRows = RiskMatrixCells.map((rows, i) => {
-            let cells = rows.map((c, j) => {
-                const cell = RiskMatrixCells[i][j],
-                    riskElements = this.getRiskElementsForCell(items, cell),
-                    riskElementsPostAction = this.getRiskElementsPostActionForCell(items, cell);
-                switch (cell.cellType) {
-                    case RiskMatrixCellType.Cell: {
-                        return (
-                            <MatrixCell
-                                key={j}
-                                contents={[
-                                    ...riskElements,
-                                    ...riskElementsPostAction,
-                                ]}
-                                className={cell.className} />
-                        );
+    private _renderTable(items?: any[]) {
+        let tableProps: React.HTMLAttributes<HTMLElement> = { id: this.props.id };
+
+        if (this.state.hideLabels) {
+            tableProps.className = "hide-labels";
+        }
+        let riskMatrixRows = null;
+        if (items) {
+            riskMatrixRows = RiskMatrixCells.map((rows, i) => {
+                let cells = rows.map((c, j) => {
+                    const cell = RiskMatrixCells[i][j],
+                        riskElements = this.getRiskElementsForCell(items, cell),
+                        riskElementsPostAction = this.getRiskElementsPostActionForCell(items, cell);
+                    switch (cell.cellType) {
+                        case RiskMatrixCellType.Cell: {
+                            return (
+                                <MatrixCell
+                                    key={j}
+                                    contents={[
+                                        ...riskElements,
+                                        ...riskElementsPostAction,
+                                    ]}
+                                    className={cell.className} />
+                            );
+                        }
+                        case RiskMatrixCellType.Header: {
+                            return (
+                                <MatrixHeaderCell
+                                    key={j}
+                                    label={c.cellValue}
+                                    className={cell.className} />
+                            );
+                        }
                     }
-                    case RiskMatrixCellType.Header: {
-                        return (
-                            <MatrixHeaderCell
-                                key={j}
-                                label={c.cellValue}
-                                className={cell.className} />
-                        );
-                    }
-                }
+                });
+                return (
+                    <MatrixRow
+                        key={i}
+                        cells={cells} />
+                );
             });
-            return (
-                <MatrixRow
-                    key={i}
-                    cells={cells} />
-            );
-        });
-        return riskMatrixRows;
+        }
+        return (
+            <table { ...tableProps } ref={ele => this.tableElement = ele}>
+                <tbody>
+                    {riskMatrixRows}
+                </tbody>
+            </table>
+        );
     }
 
     /**

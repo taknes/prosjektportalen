@@ -85,7 +85,7 @@ export default class Section extends React.PureComponent<ISectionProps, ISection
         return (
             <div id={section.getHtmlElementId("inner")}>
                 {section.showRiskMatrix && (
-                    <RiskMatrix data={listData.items} />
+                    <RiskMatrix data={{ items: listData.items }} />
                 )}
                 {section.listTitle && (
                     <SectionList id={section.getHtmlElementId("listview")} listData={listData} />

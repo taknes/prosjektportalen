@@ -2343,6 +2343,12 @@
   <data name="RiskMatrix_Header_VeryLow" xml:space="preserve">
     <value>Very low</value>
   </data>
+  <data name="RiskMatrix_ListViewSelector_Placeholder" xml:space="preserve">
+    <value>Pick a view</value>
+  </data>
+  <data name="RiskMatrix_ListViewSelector_Label" xml:space="preserve">
+    <value>View:</value>
+  </data>
   <data name="RiskMatrix_EmptyMessage" xml:space="preserve">
     <value>There's no relevant items in the Risks list.</value>
   </data>
